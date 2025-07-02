@@ -88,7 +88,7 @@ export default function MusicPlayer() {
       )}
 
       <div
-        className="glass-container hue-animated-border p-6 relative z-10 flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 rounded-xl"
+        className="glass-container hue-animated-border p-6 relative flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 rounded-xl"
         style={{
           '--dominant-color': dominantColor,
           border: `4px solid ${isPlaying ? dominantColor : 'transparent'}`,
@@ -102,13 +102,13 @@ export default function MusicPlayer() {
           <p className="text-sm text-gray-300 mb-2">by {artist}</p>
 
           <div className="flex gap-3 mt-2">
-            <button onClick={handlePrev} className="w-8 h-8 bg-white/10 rounded-full text-white flex items-center justify-center">
+            <button onClick={handlePrev} className="w-8 h-8 bg-white/10 cursor-pointer rounded-full text-white flex items-center justify-center">
               <FiSkipBack />
             </button>
-            <button onClick={togglePlayback} className="w-8 h-8 bg-orange-500 rounded-full text-white flex items-center justify-center shadow-lg hover:scale-110 transition">
+            <button onClick={togglePlayback} className="w-8 h-8 cursor-pointer bg-orange-500 rounded-full text-white flex items-center justify-center shadow-lg hover:scale-110 transition">
               {isPlaying ? <FiPause /> : <FiPlay />}
             </button>
-            <button onClick={handleNext} className="w-8 h-8 bg-white/10 rounded-full text-white flex items-center justify-center">
+            <button onClick={handleNext} className="w-8 h-8 bg-white/10 cursor-pointer rounded-full text-white flex items-center justify-center">
               <FiSkipForward />
             </button>
           </div>

@@ -58,7 +58,7 @@ const App = () => {
 
       {error && (
         <div className="text-red-500 text-center mt-4 animate-pulse">
-          ☁️{error}
+          {error}
         </div>
       )}
 
@@ -97,7 +97,7 @@ const App = () => {
 
         </div>
 
-        <div className="w-1/2 h-auto mx-auto top-[20%] bg-gradient-to-br from-[#111]/70 via-[#222]/70 to-[#000]/70 text-white p-6 rounded-xl shadow-lg relative z-10">
+        <div className="w-1/2 h-auto mx-auto top-[20%] bg-gradient-to-br from-[#111]/70 via-[#222]/70 to-[#000]/70 text-white p-6 rounded-xl z-10 shadow-lg relative">
           <Header />
 
           <div className="grid grid-cols-3 gap-6 mt-6">

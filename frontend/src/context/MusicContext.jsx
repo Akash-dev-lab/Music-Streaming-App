@@ -1,4 +1,5 @@
 import { createContext, useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 
 export const MusicContext = createContext();
 
@@ -32,6 +33,27 @@ export const MusicProvider = ({ children }) => {
     setProgress(percent);
   };
 
+ useEffect(() => {
+  const fetchTrendingSongs = async () => {
+    setLoading(true);
+    try {
+      // skipping actual trending fetch since API doesn't exist
+      // so just leave tracks empty
+      setTracks([]);
+      // do NOT call setError here
+    } catch (err) {
+      console.warn('Trending fetch skipped:', err);
+      // no setError()
+      setTracks([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchTrendingSongs();
+}, []);
+
+
+
   useEffect(() => {
     if (isPlaying) {
       const speeds = ['slow', 'medium', 'fast'];
@@ -54,7 +76,7 @@ export const MusicProvider = ({ children }) => {
       progress, setProgress,
       progressRef, isDragging, setIsDragging,
       svgRef, handleSeek,
-      glowSpeed, setGlowSpeed
+      glowSpeed, setGlowSpeed,
     }}>
       {children}
     </MusicContext.Provider>
