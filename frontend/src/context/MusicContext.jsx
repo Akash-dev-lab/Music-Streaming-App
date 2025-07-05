@@ -1,5 +1,5 @@
 import { createContext, useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import { FiPlay, FiPause } from "react-icons/fi";
 
 export const MusicContext = createContext();
 
@@ -19,6 +19,7 @@ export const MusicProvider = ({ children }) => {
   const [isDragging, setIsDragging] = useState(false);
   const svgRef = useRef(null);
   const [glowSpeed, setGlowSpeed] = useState('none');
+  const [favorites, setFavorites] = useState([]);
 
   const handleSeek = (e) => {
     if (!progressRef.current || !audioRef.current || !audioRef.current.duration) return;
@@ -32,6 +33,22 @@ export const MusicProvider = ({ children }) => {
     audioRef.current.currentTime = newTime;
     setProgress(percent);
   };
+
+  const handleTrackSelect = track => {
+        console.log(track)
+        setActiveTrack(track);
+        setShowResults(false);
+        setIsPlaying(true);
+    };
+
+    const toggleFavorite = (track) => {
+  const exists = favorites.find(t => t.id === track.id);
+  if (exists) {
+    setFavorites(favorites.filter(t => t.id !== track.id));
+  } else {
+    setFavorites([...favorites, track]);
+  }
+};
 
  useEffect(() => {
   const fetchTrendingSongs = async () => {
@@ -76,7 +93,9 @@ export const MusicProvider = ({ children }) => {
       progress, setProgress,
       progressRef, isDragging, setIsDragging,
       svgRef, handleSeek,
-      glowSpeed, setGlowSpeed,
+      glowSpeed, setGlowSpeed, handleTrackSelect,
+      toggleFavorite, favorites, toggleFavorite
+
     }}>
       {children}
     </MusicContext.Provider>

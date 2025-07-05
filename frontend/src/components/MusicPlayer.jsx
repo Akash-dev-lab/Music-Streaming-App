@@ -15,13 +15,16 @@ export default function MusicPlayer() {
     progress,
     setProgress,
     progressRef,
-    handleSeek
+    handleSeek,
+    favorites,
+    toggleFavorite
   } = useContext(MusicContext);
 
   const title = activeTrack?.name || 'Select a Song';
   const artist = activeTrack?.artists?.primary?.map(a => a.name).join(', ') || 'BotMusic';
   const image = activeTrack?.image?.[2]?.url || '';
   const audioUrl = activeTrack?.downloadUrl?.[4]?.url || '';
+  const isFavorite = favorites.some(t => t.id === activeTrack?.id);
 
   const [dominantColor, setDominantColor] = useState('#e0531f');
 
@@ -88,7 +91,7 @@ export default function MusicPlayer() {
       )}
 
       <div
-        className="glass-container hue-animated-border p-6 relative flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 rounded-xl"
+        className={`${isPlaying ? "hue-animated-border" : "none"} glass-container p-6 relative flex flex-col sm:flex-row items-center gap-6 transition-all duration-300 rounded-xl`}
         style={{
           '--dominant-color': dominantColor,
           border: `4px solid ${isPlaying ? dominantColor : 'transparent'}`,
@@ -108,6 +111,8 @@ export default function MusicPlayer() {
             <button onClick={togglePlayback} className="w-8 h-8 cursor-pointer bg-orange-500 rounded-full text-white flex items-center justify-center shadow-lg hover:scale-110 transition">
               {isPlaying ? <FiPause /> : <FiPlay />}
             </button>
+            
+
             <button onClick={handleNext} className="w-8 h-8 bg-white/10 cursor-pointer rounded-full text-white flex items-center justify-center">
               <FiSkipForward />
             </button>
@@ -143,7 +148,31 @@ export default function MusicPlayer() {
             autoPlay
           />
         </div>
+
+        <div className=''>
+        <button
+          onClick={() => toggleFavorite(activeTrack)}
+          className="w-8 h-8 bg-white/10 relative bottom-16 cursor-pointer rounded-full text-red-500 flex items-center justify-center"
+          title={isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+        >
+          {isFavorite ? '❤️' : '🤍'}
+        </button>
+
+        {isPlaying && (
+              <div className="flex">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="wave-bar" style={{
+                    background: dominantColor,
+                    transition: 'background 0.3s ease',
+                    animationDelay: `${i * 0.1}s`
+                  }}></div>
+                ))}
+              </div>
+            )}
+
       </div>
+        </div>
+        
     </div>
   );
 }

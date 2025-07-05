@@ -6,7 +6,7 @@ import FuzzyText from '../FuzzyText';
 
 export default function Header() {
 
-    const { error, tracks, loading, query, setQuery, setError, setTracks, setLoading, setActiveTrack, apiBase, showResults, setShowResults, resultRef } = useContext(MusicContext);
+    const { handleTrackSelect, tracks, loading, query, setQuery, setError, setTracks, setLoading, setActiveTrack, apiBase, showResults, setShowResults, resultRef } = useContext(MusicContext);
 
     const [enableHover] = useState(true);
     const [baseIntensity] = useState(0.2);
@@ -47,13 +47,6 @@ export default function Header() {
         } finally {
             setLoading(false);
         }
-    };
-
-
-    const handleTrackSelect = track => {
-        // console.log(track)
-        setActiveTrack(track);
-        setShowResults(false);
     };
 
     useEffect(() => {

@@ -5,9 +5,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { MusicProvider } from './context/MusicContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-      <MusicProvider>
-        <App />
-      </MusicProvider>
-    </BrowserRouter>
+
+  <BrowserRouter>
+    <MusicProvider>
+      <App />
+    </MusicProvider>
+  </BrowserRouter>
+
 )
